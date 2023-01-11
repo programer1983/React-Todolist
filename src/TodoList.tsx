@@ -1,6 +1,20 @@
-export function TodoList(props: any) {
- 
-    return (
+
+
+type TaskType = {
+  id: number
+  title: string
+  isDone: boolean
+}
+
+type PropsType = {
+  title: string
+  tasks: Array<TaskType>
+ }
+
+
+export function TodoList(props: PropsType) {
+   
+   return (
       <div>
         <h3>{props.title}</h3>
         <div>
