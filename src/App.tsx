@@ -12,8 +12,6 @@ function App() {
 
   let tasks2: Array<TaskType>  = [
     {id: 1, title: "Terminator", isDone: true},
-    {id: 2, title: "Gari Potter", isDone: false},
-    {id: 3, title: "Bad boys", isDone: true},
   ]
  
   return (
