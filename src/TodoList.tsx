@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {ChangeEvent, KeyboardEvent, useState} from "react"
 import { FilterValuesType } from "./App"
 
 
@@ -17,40 +17,61 @@ type PropsType = {
  }
 
 
+
 export function TodoList(props: PropsType) {
   const [newTaskTitle, setNewTaskTitle] = useState("")
+
+  const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewTaskTitle(e.target.value)
+  }
+
+  const onKeyPressHundler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.charCode === 13){
+      props.addTask(newTaskTitle); 
+      setNewTaskTitle("")
+    }
+  }
+
+  const addTask = () => {
+    props.addTask(newTaskTitle); setNewTaskTitle("")
+  }
+
+  const onAllClickHandler = () => props.cahangeFilter("all")
+  const onActiveClickHandler = () => props.cahangeFilter("active")
+  const onCompletedClickHandler = () => props.cahangeFilter("complited")
    
+
    return (
       <div>
         <h3>{props.title}</h3>
         <div>
           <input 
              value={newTaskTitle}
-             onChange={(e) => {setNewTaskTitle(e.target.value)}}
-             onKeyPress={(e) => {
-              if (e.charCode === 13){
-                props.addTask(newTaskTitle); 
-                setNewTaskTitle("")
-              }
-             }}
+             onChange={onNewTitleChangeHandler}
+             onKeyPress={onKeyPressHundler}
           />
           <button 
-             onClick={() => {props.addTask(newTaskTitle); setNewTaskTitle("")}}>
+             onClick={addTask}>
               *
           </button>
         </div>
         <ul>
-          {props.tasks.map((task) => (
-            <li key={task.id}>
+          {props.tasks.map((task) => {
+            const onRemoveHandler = () => {
+              props.removeTask(task.id)
+            }
+            return (
+              <li key={task.id}>
               <input type="checkbox" checked={task.isDone}/><span>{task.title}</span>
-              <button onClick={() => {props.removeTask(task.id)}}>x</button>
+              <button onClick={onRemoveHandler}>x</button>
             </li>
-          ))}      
+            )
+          })}      
         </ul>
         <div>
-          <button onClick={() => {props.cahangeFilter("all")}}>All</button>
-          <button onClick={() => {props.cahangeFilter("active")}}>Active</button>
-          <button onClick={() => {props.cahangeFilter("complited")}}>Completed</button>
+          <button onClick={onAllClickHandler}>All</button>
+          <button onClick={onActiveClickHandler}>Active</button>
+          <button onClick={onCompletedClickHandler}>Completed</button>
         </div>
       </div>
     );
