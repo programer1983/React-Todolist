@@ -14,6 +14,15 @@ function App() {
   
   const [filter, setFilter] = useState<FilterValuesType>("all")
 
+  function addTask(title: string){
+    let newTask = {
+      id: v1(),
+      title: title,
+      isDone: false,
+    }
+    setTasks([...tasks, newTask])
+  }
+
   function removeTask(id: string){
     setTasks(tasks.filter(task => task.id !== id))
   }
@@ -39,6 +48,7 @@ function App() {
           tasks={tasksForTodoList} 
           removeTask={removeTask}
           cahangeFilter={cahangeFilter}
+          addTask={addTask}
         />
     </div>
   );
