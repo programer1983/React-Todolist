@@ -1,3 +1,4 @@
+import { FilterValuesType } from "./App"
 
 
 export type TaskType = {
@@ -10,6 +11,7 @@ type PropsType = {
   title: string
   tasks: Array<TaskType>
   removeTask: (id: number) => void
+  cahangeFilter: (value: FilterValuesType) => void
  }
 
 
@@ -31,9 +33,9 @@ export function TodoList(props: PropsType) {
           ))}      
         </ul>
         <div>
-          <button>All</button>
-          <button>Active</button>
-          <button>Completed</button>
+          <button onClick={() => {props.cahangeFilter("all")}}>All</button>
+          <button onClick={() => {props.cahangeFilter("active")}}>Active</button>
+          <button onClick={() => {props.cahangeFilter("complited")}}>Completed</button>
         </div>
       </div>
     );
