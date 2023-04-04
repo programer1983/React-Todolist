@@ -56,6 +56,7 @@ function App() {
           tasks={tasksForTodoList} 
           removeTask={removeTask}
           cahangeFilter={cahangeFilter}
+          filter={filter}
           addTask={addTask}
           changeTaskStatus={changeStatus}
         />
