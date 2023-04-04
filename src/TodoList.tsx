@@ -14,6 +14,7 @@ type PropsType = {
   removeTask: (id: string) => void
   cahangeFilter: (value: FilterValuesType) => void
   addTask: (title: string) => void
+  changeTaskStatus: (taskId: string, isDone: boolean) => void
  }
 
 
@@ -39,8 +40,7 @@ export function TodoList(props: PropsType) {
   const onAllClickHandler = () => props.cahangeFilter("all")
   const onActiveClickHandler = () => props.cahangeFilter("active")
   const onCompletedClickHandler = () => props.cahangeFilter("complited")
-   
-
+  
    return (
       <div>
         <h3>{props.title}</h3>
@@ -57,12 +57,19 @@ export function TodoList(props: PropsType) {
         </div>
         <ul>
           {props.tasks.map((task) => {
-            const onRemoveHandler = () => {
-              props.removeTask(task.id)
-            }
+            const onRemoveHandler = () => {props.removeTask(task.id)}
+            const onChangeHandler = (
+              e: ChangeEvent<HTMLInputElement>) => {
+                props.changeTaskStatus(task.id, e.currentTarget.checked)
+              }
             return (
-              <li key={task.id}>
-              <input type="checkbox" checked={task.isDone}/><span>{task.title}</span>
+            <li key={task.id}>
+              <input 
+                 type="checkbox" 
+                 checked={task.isDone}
+                 onChange={onChangeHandler}
+              />
+                 <span>{task.title}</span>
               <button onClick={onRemoveHandler}>x</button>
             </li>
             )

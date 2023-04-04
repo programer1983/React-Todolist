@@ -31,6 +31,14 @@ function App() {
     setFilter(value)
   }
 
+  function changeStatus(taskId: string, isDone: boolean){
+    let task = tasks.find(t => t.id === taskId)
+    if (task){
+      task.isDone = isDone
+    }
+    setTasks([...tasks])
+  }
+
   let tasksForTodoList = tasks
 
   if (filter === "complited"){
@@ -49,6 +57,7 @@ function App() {
           removeTask={removeTask}
           cahangeFilter={cahangeFilter}
           addTask={addTask}
+          changeTaskStatus={changeStatus}
         />
     </div>
   );
