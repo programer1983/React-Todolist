@@ -9,16 +9,15 @@ export type TaskType = {
 }
 
 type PropsType = {
+  id: string
   title: string
   tasks: Array<TaskType>
   removeTask: (id: string) => void
-  cahangeFilter: (value: FilterValuesType) => void
+  cahangeFilter: (value: FilterValuesType, todolistId: string) => void
   filter: FilterValuesType
   addTask: (title: string) => void
   changeTaskStatus: (taskId: string, isDone: boolean) => void
  }
-
-
 
 export function TodoList(props: PropsType) {
   const [title, setTitle] = useState("")
@@ -44,9 +43,9 @@ export function TodoList(props: PropsType) {
     } 
   }
 
-  const onAllClickHandler = () => props.cahangeFilter("all")
-  const onActiveClickHandler = () => props.cahangeFilter("active")
-  const onCompletedClickHandler = () => props.cahangeFilter("complited")
+  const onAllClickHandler = () => props.cahangeFilter("all", props.id)
+  const onActiveClickHandler = () => props.cahangeFilter("active", props.id)
+  const onCompletedClickHandler = () => props.cahangeFilter("complited", props.id)
   
    return (
       <div>
