@@ -17,6 +17,7 @@ type PropsType = {
   filter: FilterValuesType
   addTask: (title: string, todolistId: string) => void
   changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
+  removeTodoList: (todolistId: string) => void
  }
 
 export function TodoList(props: PropsType) {
@@ -46,10 +47,14 @@ export function TodoList(props: PropsType) {
   const onAllClickHandler = () => props.cahangeFilter("all", props.id)
   const onActiveClickHandler = () => props.cahangeFilter("active", props.id)
   const onCompletedClickHandler = () => props.cahangeFilter("complited", props.id)
+
+  const removeTodoList = () => {
+    props.removeTodoList(props.id)
+  }
   
    return (
       <div>
-        <h3>{props.title}</h3>
+        <h3>{props.title} <button onClick={removeTodoList}>X</button></h3>
         <div>
           <input 
              value={title}
