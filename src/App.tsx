@@ -6,12 +6,17 @@ import { AddItemForm } from './AddItemForm';
 
 export type FilterValuesType = "all" | "complited" | "active"
 
+type TodoListType = {
+  id: string
+  title: string
+  filter: FilterValuesType
+}
+
+type TasksStateType = {
+  [key: string]: TaskType[]
+}
+
 function App() {
-  type TodoListType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-  }
 
   function addTask(title: string, todolistId: string){
     let task = {
@@ -64,7 +69,7 @@ function App() {
     setTasks({...tasksObj})
   }
 
-  let [tasksObj, setTasks] = useState({
+  let [tasksObj, setTasks] = useState<TasksStateType>({
     [todolistId1]: [
       {id: v1(), title: "CSS", isDone: false},
       {id: v1(), title: "JS", isDone: true},
