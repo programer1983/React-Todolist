@@ -46,6 +46,23 @@ function App() {
     }
   }
 
+  function changeTaskTitle(taskId: string, newTitle: string, todolistId: string){
+    let tasks = tasksObj[todolistId]
+    let task = tasks.find(t => t.id === taskId)
+    if (task){
+      task.title = newTitle
+      setTasks({...tasksObj})
+    }
+  }
+
+  function changeTodoListTitle(id: string, newTitle: string){
+    const todoList = todoLists.find(tl => tl.id === id)
+    if (todoList){
+      todoList.title = newTitle
+      setTodoLists([...todoLists])
+    }
+  }
+
   function cahangeFilter(value: FilterValuesType, todolistId: string){
     let todoList = todoLists.find(tl => tl.id === todolistId)
     if (todoList){
@@ -107,18 +124,20 @@ function App() {
         }
 
         return (
-        <TodoList
-          key={tl.id}
-          id={tl.id}
-          title={tl.title} 
-          tasks={tasksForTodoList} 
-          removeTask={removeTask}
-          cahangeFilter={cahangeFilter}
-          filter={tl.filter}
-          addTask={addTask}
-          changeTaskStatus={changeStatus}
-          removeTodoList={removeTodoList}
-        />
+          <TodoList
+            key={tl.id}
+            id={tl.id}
+            title={tl.title} 
+            tasks={tasksForTodoList} 
+            removeTask={removeTask}
+            cahangeFilter={cahangeFilter}
+            filter={tl.filter}
+            addTask={addTask}
+            changeTaskStatus={changeStatus}
+            changeTaskTitle={changeTaskTitle}
+            removeTodoList={removeTodoList}
+            changeTodoListTitle={changeTodoListTitle}
+          />
         )
       })}
     </div>
